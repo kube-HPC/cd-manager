@@ -1,6 +1,6 @@
 echo Running tests!!!
 curl -k -X POST \
-  https://40.69.222.75/hkube/api-server/api/v1/exec/raw \
+  https://${KUBERNETES_MASTER_IP}/hkube/api-server/api/v1/exec/raw \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{
