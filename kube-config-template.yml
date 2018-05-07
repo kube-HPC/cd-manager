@@ -2,7 +2,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: ${KUBERNETES_CERTIFICATE_AUTHORITY_DATA}
-    server: https://${KUBERNETES_MASTER_HOST}:6443
+    server: https://${KUBERNETES_MASTER_IP}:6443
   name: default-cluster
 contexts:
 - context:

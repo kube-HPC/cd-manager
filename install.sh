@@ -5,8 +5,6 @@ chmod +x ./kubectl
 mkdir -p ./bin
 export PATH=$PWD/bin:$PATH
 mv ./kubectl $PWD/bin/kubectl
-echo ${KUBERNETES_MASTER_HOST} ${KUBERNETES_MASTER_IP} > ~/.hosts
-export HOSTALIASES=~/.hosts
 mkdir -p ~/.kube/
 envsubst < ./kube-config-template.yml > ~/.kube/config
 kubectl cluster-info
