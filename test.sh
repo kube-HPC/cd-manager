@@ -14,5 +14,5 @@ envsubst < ${TEST_FOLDER}/testConfigFiles/template/ipConfigs.template.csv > ${TE
 
 echo using config;
 cat ${TEST_FOLDER}/testConfigFiles/ipConfigs.csv
-# docker run --rm -it -v /tmp/xxx/system-test:/system-test  hkube/jmeter:v1.0.1 -c "cd /system-test/run_files; ./regression_indeviduals.sh"
+docker run --rm -it -v /tmp/xxx/system-test:/system-test  hkube/jmeter:v1.0.1 -c "cd /system-test/run_files; ./regression_indeviduals.sh"
 # rm -rf ${TEST_FOLDER}
