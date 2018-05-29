@@ -27,10 +27,11 @@ envsubst < ${TEST_FOLDER}/testConfigFiles/template/ipConfigs.template.csv > ${TE
 echo using config;
 cat ${TEST_FOLDER}/testConfigFiles/ipConfigs.csv
 docker run --rm -it -v /tmp/xxx/system-test:/system-test  hkube/jmeter:v1.0.1 -c "cd /system-test/run_files; ./regression_indeviduals.sh" | tee ./out.log
-cat out.log
+
 rc=${PIPESTATUS[0]}
 if [[ $rc != 0 ]]; then
   echo FAILED
+  cat out.log
   ls ${TEST_RESULTS}
   awk "/The following tests has failed:/ { flag = 1 }; flag" out.log > filtered.log
   export FAILED="$(grep .jtl filtered.log)"
