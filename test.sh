@@ -18,7 +18,7 @@ export APAK_OUTPUT_PATH=/ApakMCR/example_input_output
 
 # export TEST_FOLDER=$(mktemp -d)/system-test
 export TEST_FOLDER=/tmp/xxx/system-test
-export TEST_RESULTS=${TEST_FOLDER}/run-files/results/
+export TEST_RESULTS=${TEST_FOLDER}/run_files/results/
 echo cloning system tests to ${TEST_FOLDER}
 mkdir -p ${TEST_FOLDER}
 git clone --depth=1 https://github.com/kube-HPC/system-test.git ${TEST_FOLDER}
