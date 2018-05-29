@@ -31,7 +31,8 @@ docker run --rm -it -v /tmp/xxx/system-test:/system-test  hkube/jmeter:v1.0.1 -c
 rc=${PIPESTATUS[0]}
 if [[ $rc != 0 ]]; then
   echo FAILED
-  awk "/end of run/ { flag = 1 }; flag" out.log > filtered.log
+  ls ${TEST_RESULTS}
+  awk "/The following tests has failed:/ { flag = 1 }; flag" out.log > filtered.log
   export FAILED="$(grep .jtl filtered.log)"
   echo "${FAILED}" | xargs -n 1 -i sh -c "echo ====== Results for {} ======; cat ${TEST_RESULTS}{}; echo ====== end results ======; echo"
 
