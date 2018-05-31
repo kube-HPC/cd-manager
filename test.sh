@@ -1,6 +1,7 @@
 generate_post_data()
 {
-    local failedNoNL="${FAILED//$'\n'/\\n}"
+    local failed="$(cat failed.log)"
+    local failedNoNL="${failed//$'\n'/\\n}"
     cat <<EOF
 {
     "title":"CD test failed",
@@ -33,12 +34,21 @@ if [[ $rc != 0 ]]; then
   echo FAILED
   ls ${TEST_RESULTS}
   awk "/The following tests has failed:/ { flag = 1 }; flag" out.log > filtered.log
-  export FAILED="$(grep .jtl filtered.log)"
-  echo "${FAILED}" | xargs -n 1 -i sh -c "echo ====== Results for {} ======; cat ${TEST_RESULTS}{}; echo ====== end results ======; echo"
+  echo -n > failed.log
+  for line in $(grep .jtl filtered.log); do
+    line=${line//$'\r'/''}
+    echo line: $line
+    echo ${line}>>failed.log
+    echo ====== Results for ${line} ======
+    cat ${TEST_RESULTS}${line}
+    echo ====== end results ======
+    echo
+  done
+#   echo "${FAILED}" | xargs -n 1 -i sh -c "echo ====== Results for {} ======; cat ${TEST_RESULTS}{}; echo ====== end results ======; echo"
 
   echo "$(generate_post_data)"
-   curl -X POST -d "$(generate_post_data)" \
-   -H "Authorization: token ${GH_TOKEN}" https://api.github.com/repos/kube-hpc/cd-manager/issues
+  curl -X POST -d "$(generate_post_data)" \
+    -H "Authorization: token ${GH_TOKEN}" https://api.github.com/repos/kube-hpc/cd-manager/issues
 fi
 exit $rc
 # rm -rf ${TEST_FOLDER}
