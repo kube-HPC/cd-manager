@@ -12,6 +12,7 @@ jobs:
     - stage: test
       install:
       - ./install.sh
+      - npm i -g npm@6
       script: ./test.sh
       sudo: required
 stages:
