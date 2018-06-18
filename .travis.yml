@@ -23,7 +23,7 @@ jobs:
 stages:
   - deploy
   - test-short
-  - test
+  - name: test
     if: tag IS present
     
   
