@@ -15,7 +15,15 @@ jobs:
       - npm i -g npm@6
       script: ./test.sh
       sudo: required
+    - stage: test-short
+      install:
+      - ./install.sh
+      - npm i -g npm@6
+      script: ./test-short.sh
 stages:
   - deploy
+  - test-short
   - test
+    if: tag IS present
+    
   
