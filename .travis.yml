@@ -22,7 +22,7 @@ jobs:
       script: ./test-short.sh
 stages:
   - deploy
-#   - test-short
+  - test-short
   - name: test
     if: tag IS present
     
