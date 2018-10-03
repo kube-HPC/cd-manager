@@ -24,6 +24,6 @@ stages:
   - deploy
   - test-short
   - name: test
-    if: tag IS present
+    # if: tag IS present
     
   
