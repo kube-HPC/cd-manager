@@ -7,7 +7,6 @@ jobs:
     - stage: deploy
       install:
       - ./install.sh
-      - npm i -g @hkube/hkube
       script: ./deploy.sh
     - stage: test
       install:
