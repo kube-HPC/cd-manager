@@ -1,0 +1,9 @@
+global:
+  production: true
+  clusterName: pub
+  registry: ""
+  storage:
+    minio:
+      url: http://minio1.kube-system.svc:9000 
+      access_key: ${AWS_ACCESS_KEY}
+      secret_key: ${AWS_SECRET_KEY}
