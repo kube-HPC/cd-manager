@@ -4,7 +4,7 @@ source ./setPath
 helm repo add hkube http://hkube.io/helm
 helm repo update
 envsubst < ./values-pub-template.yml > ~/pub.yml
-helm upgrade --wait -i hkube -f ~/pub.yml hkube/hkube
+helm upgrade --wait --timeout 600 -i hkube -f ~/pub.yml hkube/hkube
 # hkube deploy --cluster_name=pub -c
 # until $(curl -k --output /dev/null --silent --head --fail https://${KUBERNETES_MASTER_IP}/hkube/api-server/api/); do
 #     printf '.'
