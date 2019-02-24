@@ -7,3 +7,12 @@ global:
       url: http://minio1.kube-system.svc:9000 
       access_key: ${AWS_ACCESS_KEY}
       secret_key: ${AWS_SECRET_KEY}
+    fs:
+      pvc: 
+         name: 'hkube-storage'
+         capacity: '50Gi'
+         nfs_server: '10.0.0.4'
+         nfs_root: '/srv/vol_nfs'
+      base_directory: '/hkubedata'
+env:
+  default_storage: 'fs'
