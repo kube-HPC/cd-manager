@@ -17,13 +17,7 @@ global:
 env:
   default_storage: 'fs'
 build_secret:
-  pull:
-    registry: ''
-    namespace: ''
-    username: ''
-    password: ''
-  push:
-    registry: ''
-    namespace: hkubedev
-    username: hkubedev
-    password: ${DOCKER_BUILD_PUSH_PASSWORD}
+  registry: ''
+  namespace: ''
+  username: hkubedev
+  password: ${DOCKER_BUILD_PUSH_PASSWORD}
