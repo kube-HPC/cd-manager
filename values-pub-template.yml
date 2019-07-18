@@ -17,7 +17,7 @@ global:
 env:
   default_storage: 'fs'
 build_secret:
-  registry: ''
-  namespace: ''
-  username: hkubedev
-  password: ${DOCKER_BUILD_PUSH_PASSWORD}
+  docker_registry: ''
+  docker_namespace: ''
+  docker_username: hkubedev
+  docker_password: ${DOCKER_BUILD_PUSH_PASSWORD}
