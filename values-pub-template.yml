@@ -1,6 +1,6 @@
 global:
   production: true
-  clusterName: pub
+  clusterName: cicd
   registry: ""
   storage:
     binary: true
