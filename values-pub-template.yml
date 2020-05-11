@@ -24,3 +24,6 @@ build_secret:
   docker_namespace: ''
   docker_username: hkubedev
   docker_password: ${DOCKER_BUILD_PUSH_PASSWORD}
+monitor_server:
+  env:
+    elasticsearch_service_url: 'http://elasticsearch-ingest.logging.svc.cicd:9200'
