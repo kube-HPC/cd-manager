@@ -4,7 +4,7 @@ global:
   registry: ""
   storage:
     binary: true
-    minio:
+    s3:
       url: http://minio1.kube-system.svc:9000 
       access_key: ${AWS_ACCESS_KEY}
       secret_key: ${AWS_SECRET_KEY}
@@ -24,6 +24,13 @@ build_secret:
   docker_namespace: ''
   docker_username: hkubedev
   docker_password: ${DOCKER_BUILD_PUSH_PASSWORD}
+etcd:
+  persistentVolume:
+    enabled: true
+    storageClass: nfs-client
+task_executor:
+  env:
+    pipeline_drivers_amount: 10
 monitor_server:
   env:
     elasticsearch_service_url: 'http://elasticsearch-ingest.logging.svc.cicd:9200'
