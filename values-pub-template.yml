@@ -17,6 +17,7 @@ global:
       base_directory: '/hkubedata'
   ingress:
     use_regex: true
+    hostname: ${CICD_HOSTNAME}
 env:
   default_storage: 'fs'
 build_secret:
