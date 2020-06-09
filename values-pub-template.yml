@@ -25,6 +25,10 @@ build_secret:
   docker_namespace: ''
   docker_username: hkubedev
   docker_password: ${DOCKER_BUILD_PUSH_PASSWORD}
+minio:
+  enable: false
+jaeger:
+  enable: true
 etcd:
   persistentVolume:
     enabled: true
