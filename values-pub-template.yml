@@ -14,6 +14,8 @@ global:
          capacity: '50Gi'
          nfs_server: '172.22.0.115'
          nfs_root: '/nfs/storageclass'
+      dev_pvc:
+         storage_class: 'nfs-client'
       base_directory: '/hkubedata'
   ingress:
     use_regex: true
