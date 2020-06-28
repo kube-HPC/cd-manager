@@ -9,7 +9,6 @@ mv ./kubectl $PWD/bin/kubectl
 mkdir -p ~/.kube/
 envsubst < ./kube-config-template.yml > ~/.kube/config
 kubectl cluster-info
-curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.14.3-linux-amd64.tar.gz
+curl -LO https://get.helm.sh/helm-v3.2.4-linux-amd64.tar.gz
 tar -zxvf helm-v2.14.3-linux-amd64.tar.gz
 mv linux-amd64/helm $PWD/bin/helm
-helm init --client-only
