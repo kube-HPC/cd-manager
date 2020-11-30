@@ -29,3 +29,5 @@ jobs:
         run: kubectl cluster-info
       - name: deploy
         run: ./deploy.sh
+        env:
+          DOCKER_BUILD_PUSH_PASSWORD: ${{ secrets.DOCKER_BUILD_PUSH_PASSWORD }}
