@@ -31,3 +31,8 @@ jobs:
         run: ./deploy.sh
         env:
           DOCKER_BUILD_PUSH_PASSWORD: ${{ secrets.DOCKER_BUILD_PUSH_PASSWORD }}
+      - name: test
+        run: ./test.sh
+        env:
+          KUBERNETES_MASTER_IP: ${{ secrets.CICD_KUBERNETES_MASTER_IP }}
+
