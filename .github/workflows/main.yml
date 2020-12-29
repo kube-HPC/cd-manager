@@ -31,8 +31,22 @@ jobs:
         run: ./deploy.sh
         env:
           DOCKER_BUILD_PUSH_PASSWORD: ${{ secrets.DOCKER_BUILD_PUSH_PASSWORD }}
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: create kubeconfig
+        run: |
+          echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
+          echo KUBECONFIG=/tmp/config >> $GITHUB_ENV
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.CICD_KUBECONFIG }}
+      - name: verify kubectl
+        run: kubectl cluster-info
       - name: test
         run: ./test.sh
         env:
           KUBERNETES_MASTER_IP: ${{ secrets.CICD_KUBERNETES_MASTER_IP }}
+      
 
