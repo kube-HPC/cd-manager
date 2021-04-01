@@ -32,6 +32,7 @@ jobs:
         env:
           DOCKER_BUILD_PUSH_PASSWORD: ${{ secrets.DOCKER_BUILD_PUSH_PASSWORD }}
           DOCKER_BUILD_PUSH_USERNAME: ${{ secrets.DOCKER_BUILD_PUSH_USERNAME }}
+          VERSION: ${{ github.event.client_payload.version }}
   test:
     runs-on: ubuntu-latest
     needs: deploy
