@@ -4,6 +4,7 @@ echo Deploy to kubernetes
 helm ls --all
 helm repo add hkube-dev http://hkube.io/helm/dev/
 helm repo update
+envsubst < ./values-pub-template.yml > /tmp/pub.yml
 VERSION=${VERSION:-latest}
 # wait for version
 if [ "$VERSION" != "latest" ]
