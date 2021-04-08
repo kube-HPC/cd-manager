@@ -27,6 +27,7 @@ jobs:
       - name: create kubeconfig
         run: |
           echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
+          chmod go-r /tmp/config
           echo KUBECONFIG=/tmp/config >> $GITHUB_ENV
         env:
           KUBE_CONFIG_DATA: ${{ secrets.CICD_KUBECONFIG }}
