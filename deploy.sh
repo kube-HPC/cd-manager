@@ -9,7 +9,7 @@ VERSION=${VERSION:-latest}
 # wait for version
 if [ "$VERSION" != "latest" ]
 then
-    MAX_RETRY=6
+    MAX_RETRY=20
     RETRY=0
     until [ "$RETRY" -ge "$MAX_RETRY" ]
     do
@@ -24,7 +24,7 @@ then
             break
         fi
         echo version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY
-        sleep 10
+        sleep 15
     done
     if [ $RETRY == $MAX_RETRY ]; then
       echo Failed to install $VERSION. Try running the action again
