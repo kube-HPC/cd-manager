@@ -28,6 +28,7 @@ then
     done
     if [ $RETRY == $MAX_RETRY ]; then
       echo Failed to install $VERSION. Try running the action again
+      exit 1
     fi
 else
     helm search repo hkube-dev/hkube
