@@ -23,8 +23,8 @@ then
             helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube --version $VERSION
             break
         fi
-        echo version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY
-        sleep 15
+        echo version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY in 30 seconds
+        sleep 30
     done
     if [ $RETRY == $MAX_RETRY ]; then
       echo Failed to install $VERSION. Try running the action again
