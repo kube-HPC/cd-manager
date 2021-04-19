@@ -24,7 +24,7 @@ then
             break
         fi
         echo version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY in 30 seconds
-        helm repo update >/dev/null
+        helm repo update
         sleep 30
     done
     if [ $RETRY == $MAX_RETRY ]; then
