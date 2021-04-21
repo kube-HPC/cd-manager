@@ -15,6 +15,7 @@ then
     do
         RETRY=$((RETRY+1))
         FOUND=$(helm search repo hkube-dev/hkube --version $VERSION)
+        echo $FOUND
         echo $FOUND | grep $VERSION 
         NOT_FOUND=$?
         if [ $NOT_FOUND -eq 0 ]
