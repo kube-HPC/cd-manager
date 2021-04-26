@@ -14,6 +14,7 @@ then
     until [ "$RETRY" -ge "$MAX_RETRY" ]
     do
         RETRY=$((RETRY+1))
+        helm search repo hkube-dev/hkube
         FOUND=$(helm search repo hkube-dev/hkube --version $VERSION)
         echo $FOUND
         echo $FOUND | grep $VERSION 
