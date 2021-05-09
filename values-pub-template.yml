@@ -35,7 +35,7 @@ task_executor:
     pipeline_drivers_amount: 10
 monitor_server:
   env:
-    elasticsearch_service_url: 'http://elasticsearch-ingest.logging.svc.cluster.local:9200'
+    elasticsearch_service_url: 'http://elasticsearch-ingest.logging.svc.cicd:9200'
 etcd_cleaner:
   pattern: 0 5 * * *
 storage_cleaner:
