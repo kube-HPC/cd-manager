@@ -14,6 +14,7 @@ then
     until [ "$RETRY" -ge "$MAX_RETRY" ]
     do
         RETRY=$((RETRY+1))
+        helm repo update
         helm search repo hkube-dev/hkube
         FOUND=$(helm search repo hkube-dev/hkube --version $VERSION)
         echo $FOUND
@@ -26,7 +27,7 @@ then
             break
         fi
         echo version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY in 30 seconds
-        helm repo update
+        helm repo remove hkube-dev && helm repo add hkube-dev "http://hkube.io/helm/dev/?$(xxd -l 4 -c 4 -p < /dev/random)"
         sleep 30
     done
     if [ $RETRY == $MAX_RETRY ]; then
