@@ -8,7 +8,7 @@ global:
       pvc: 
          name: 'hkube-storage'
          capacity: '50Gi'
-         nfs_server: '172.20.46.223'
+         nfs_server: '172.20.45.142'
          nfs_root: '/nfs/storageclass'
       dev_pvc:
          storage_class: 'nfs-client'
@@ -39,4 +39,6 @@ monitor_server:
 etcd_cleaner:
   pattern: 0 5 * * *
 storage_cleaner:
-  pattern: 0 5 * * *  
+  pattern: 0 5 * * *
+etcd_defrag:
+  enable: false
