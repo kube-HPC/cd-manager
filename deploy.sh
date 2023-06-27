@@ -23,7 +23,7 @@ then
         if [ $NOT_FOUND -eq 0 ]
         then
             echo found version $VERSION
-            helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube --version $VERSION
+            helm upgrade --wait --timeout 20m -i hkube -f /tmp/pub.yml hkube-dev/hkube --version $VERSION
             break
         fi
         echo version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY in 30 seconds
@@ -36,7 +36,7 @@ then
     fi
 else
     helm search repo hkube-dev/hkube
-    helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube
+    helm upgrade --wait --timeout 20m -i hkube -f /tmp/pub.yml hkube-dev/hkube
 fi
 helm ls --all
 
