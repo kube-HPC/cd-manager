@@ -1,5 +1,5 @@
 #!/bin/bash
-domain = "$1"
+domain="$1"
 echo Deploy to kubernetes
 # source ./setPath
 helm ls --all
