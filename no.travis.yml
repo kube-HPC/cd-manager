@@ -7,7 +7,7 @@ jobs:
     - stage: deploy
       install:
       - ./install.sh
-      script: ./deploy.sh
+      script: ./deploy.sh ${{ secrets.HKUBE_DOMAIN_RAW }}
     - stage: test
       install:
       - ./install.sh
