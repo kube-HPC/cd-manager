@@ -41,4 +41,3 @@ else
 fi
 helm ls --all
 
-echo Script End
