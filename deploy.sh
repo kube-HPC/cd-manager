@@ -1,8 +1,9 @@
 #!/bin/bash
+domain="$1"
 echo Deploy to kubernetes
 # source ./setPath
 helm ls --all
-helm repo add hkube-dev http://hkube.org/helm/dev/
+helm repo add hkube-dev http://"$domain"/helm/dev/
 helm repo update
 envsubst < ./values-pub-template.yml > /tmp/pub.yml
 VERSION=${VERSION:-latest}
