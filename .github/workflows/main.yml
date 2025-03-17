@@ -56,5 +56,9 @@ jobs:
         run: ./test.sh
         env:
           KUBERNETES_MASTER_IP: ${{ secrets.CICD_KUBERNETES_MASTER_IP }}
+          KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
+          KEYCLOAK_DEV_USER: ${{ secrets.KEYCLOAK_DEV_USER }}
+          KEYCLOAK_GUEST_PASS: ${{ secrets.KEYCLOAK_GUEST_PASS }}
+          KEYCLOAK_GUEST_USER: ${{ secrets.KEYCLOAK_GUEST_USER }}
       
 
