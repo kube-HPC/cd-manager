@@ -53,7 +53,27 @@ jobs:
       - name: verify kubectl
         run: kubectl cluster-info
       - name: test
-        run: ./test.sh
+        run: |
+          echo Running tests
+          export BASE_URL=https://${KUBERNETES_MASTER_IP}
+          export WEBHOOK_URL=${WEBHOOK_MASTER_URL}
+
+          echo "BASE_URL=$BASE_URL"
+
+          echo "=== Public IP of this runner ==="
+          curl -s https://api.ipify.org || true
+          echo
+          echo "================================"
+
+          echo "=== DNS lookup ==="
+          nslookup $(echo $BASE_URL | sed 's~https\?://~~')
+          echo "================================"
+
+          echo "=== Curl connectivity test ==="
+          curl -vk $BASE_URL/auth/login || true
+          echo "================================"
+
+          npm test
         env:
           KUBERNETES_MASTER_IP: ${{ secrets.CICD_KUBERNETES_MASTER_IP }}
           KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
