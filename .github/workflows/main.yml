@@ -72,8 +72,7 @@ jobs:
           echo "=== Curl connectivity test ==="
           curl -vk $BASE_URL/auth/login || true
           echo "================================"
-
-          npm test
+          ./test.sh
         env:
           KUBERNETES_MASTER_IP: ${{ secrets.CICD_KUBERNETES_MASTER_IP }}
           KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
