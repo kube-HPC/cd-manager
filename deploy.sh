@@ -39,7 +39,7 @@ then
     fi
 else
     helm search repo hkube-dev/hkube
-    helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube
+    helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube --force
 fi
 helm ls --all
 
