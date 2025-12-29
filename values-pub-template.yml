@@ -83,3 +83,8 @@ jaeger:
 
 minio:
   enable: true
+
+keycloak:
+  enable: true
+  auth:
+    adminPassword: ${KEYCLOAK_ADMIN_PASS}
