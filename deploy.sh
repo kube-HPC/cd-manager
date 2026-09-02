@@ -4,8 +4,14 @@ set -ex
 domain="$1"
 echo "Deploy to kubernetes"
 
+# select the cluster explicitly instead of relying on the kubeconfig current-context
+HELM_CONTEXT_ARG=()
+if [ -n "${KUBE_CONTEXT:-}" ]; then
+    HELM_CONTEXT_ARG=(--kube-context "$KUBE_CONTEXT")
+fi
+
 # source ./setPath
-helm ls --all
+helm "${HELM_CONTEXT_ARG[@]}" ls --all
 helm repo add hkube-dev "http://$domain/helm/dev/"
 helm repo update
 
@@ -28,7 +34,7 @@ then
         # Check if version exists
         if helm search repo hkube-dev/hkube --version "$VERSION" | grep -q "$VERSION"; then
             echo "Found version $VERSION"
-            helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube --version "$VERSION"
+            helm "${HELM_CONTEXT_ARG[@]}" upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube --version "$VERSION"
             break
         fi
 
@@ -44,7 +50,7 @@ then
     fi
 else
     helm search repo hkube-dev/hkube
-    helm upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube
+    helm "${HELM_CONTEXT_ARG[@]}" upgrade --wait --timeout 10m -i hkube -f /tmp/pub.yml hkube-dev/hkube
 fi
 
-helm ls --all
+helm "${HELM_CONTEXT_ARG[@]}" ls --all

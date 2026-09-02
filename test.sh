@@ -1,5 +1,5 @@
 echo Running tests - short!!!
-export BASE_URL=https://${KUBERNETES_MASTER_IP}
+export BASE_URL=https://${CLUSTER_URL}
 export TEST_FOLDER=/tmp/xxx/system-test-node
 echo cloning system tests to ${TEST_FOLDER}
 mkdir -p ${TEST_FOLDER}

@@ -18,21 +18,19 @@ jobs:
   # This workflow contains a single job called "build"
   deploy:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, hkube-self-hosted-cd-manager]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: create kubeconfig
+      - name: select kube context
         run: |
-          echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
-          chmod go-r /tmp/config
-          echo KUBECONFIG=/tmp/config >> $GITHUB_ENV
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.CICD_KUBECONFIG }}
+          # single kubeconfig on the runner holds all cluster contexts; select via --context, do not mutate the shared file
+          echo KUBECONFIG=/etc/hkube/kube/config >> $GITHUB_ENV
+          echo KUBE_CONTEXT=cicd-lz.hkube.org >> $GITHUB_ENV
       - name: verify kubectl
-        run: kubectl cluster-info
+        run: kubectl --context "$KUBE_CONTEXT" cluster-info
       - name: deploy
         run: ./deploy.sh ${{ secrets.HKUBE_DOMAIN_RAW }}
         env:
@@ -43,22 +41,21 @@ jobs:
           VERSION: ${{ github.event.client_payload.version || github.event.inputs.version }}
           KEYCLOAK_ADMIN_PASS: ${{ secrets.KC_ADMIN_PASSWORD }}
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, hkube-self-hosted-cd-manager]
     needs: deploy
     steps:
       - uses: actions/checkout@v2
-      - name: create kubeconfig
+      - name: select kube context
         run: |
-          echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config
-          echo KUBECONFIG=/tmp/config >> $GITHUB_ENV
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.CICD_KUBECONFIG }}
+          # single kubeconfig on the runner holds all cluster contexts; select via --context, do not mutate the shared file
+          echo KUBECONFIG=/etc/hkube/kube/config >> $GITHUB_ENV
+          echo KUBE_CONTEXT=cicd-lz.hkube.org >> $GITHUB_ENV
       - name: verify kubectl
-        run: kubectl cluster-info
+        run: kubectl --context "$KUBE_CONTEXT" cluster-info
       - name: test
         run: ./test.sh
         env:
-          KUBERNETES_MASTER_IP: ${{ secrets.CICD_KUBERNETES_MASTER_IP }}
+          CLUSTER_URL: ${{ vars.CICD_LZ_URL }}
           KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
           KEYCLOAK_DEV_USER: ${{ secrets.KEYCLOAK_DEV_USER }}
           KEYCLOAK_GUEST_PASS: ${{ secrets.KEYCLOAK_GUEST_PASS }}
