@@ -12,7 +12,8 @@ fi
 
 # source ./setPath
 helm "${HELM_CONTEXT_ARG[@]}" ls --all
-helm repo add hkube-dev "https://$domain/helm/dev/"
+# --force-update: the self-hosted runner keeps ~/.config/helm between jobs
+helm repo add --force-update hkube-dev "https://$domain/helm/dev/"
 helm repo update
 
 envsubst < ./values-pub-template.yml > /tmp/pub.yml
@@ -40,7 +41,7 @@ then
 
         echo "Version $VERSION not ready yet. Retry $RETRY of $MAX_RETRY in 30 seconds"
         helm repo remove hkube-dev
-        helm repo add hkube-dev "https://hkube.org/helm/dev/?$(xxd -l 4 -c 4 -p < /dev/random)"
+        helm repo add --force-update hkube-dev "https://hkube.org/helm/dev/?$(xxd -l 4 -c 4 -p < /dev/random)"
         sleep 30
     done
 
