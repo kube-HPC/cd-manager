@@ -45,6 +45,9 @@ jobs:
     needs: deploy
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
       - name: select kube context
         run: |
           # single kubeconfig on the runner holds all cluster contexts; select via --context, do not mutate the shared file
@@ -56,6 +59,8 @@ jobs:
         run: ./test.sh
         env:
           CLUSTER_URL: ${{ vars.CICD_LZ_URL }}
+          # in-VPC path hits the ingress default cert
+          NODE_TLS_REJECT_UNAUTHORIZED: "0"
           KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
           KEYCLOAK_DEV_USER: ${{ secrets.KEYCLOAK_DEV_USER }}
           KEYCLOAK_GUEST_PASS: ${{ secrets.KEYCLOAK_GUEST_PASS }}
