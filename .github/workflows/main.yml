@@ -58,7 +58,7 @@ jobs:
       - name: test
         run: ./test.sh
         env:
-          CLUSTER_URL: ${{ vars.CICD_LZ_URL }}
+          CLUSTER_URL: ${{ secrets.CICD_LZ_URL }}
           # in-VPC path hits the ingress default cert
           NODE_TLS_REJECT_UNAUTHORIZED: "0"
           KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
