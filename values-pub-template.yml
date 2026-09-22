@@ -1,6 +1,7 @@
 global:
   production: true
-  clusterName: cicd
+  clusterName: cicd-lz
+  hkube_url: https://cicd.hkube.org/hkube
   registry: ""
   storage:
     binary: true
@@ -8,8 +9,8 @@ global:
       pvc: 
          name: 'hkube-storage'
          capacity: '50Gi'
-         nfs_server: '172.20.45.142'
-         nfs_root: '/nfs/storageclass'
+         nfs_server: 10.30.239.124
+         nfs_root: /nfs/storageclass/cicd-lz
       dev_pvc:
          storage_class: 'nfs-client'
       base_directory: '/hkubedata'
@@ -20,7 +21,7 @@ global:
 
   health_monitoring:
     enabled: true
-    dataSourceUrl: "http://metric-kube-prometheus-sta-prometheus.monitoring.svc.cicd:9090"
+    dataSourceUrl: "http://metric-kube-prometheus-sta-prometheus.monitoring.svc.cicd-lz:9090"
 
 env:
   kibana_url: "https://cicd.hkube.org/system/kibana/"
