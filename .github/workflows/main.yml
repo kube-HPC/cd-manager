@@ -55,32 +55,6 @@ jobs:
           echo KUBE_CONTEXT=cicd-lz.hkube.org >> $GITHUB_ENV
       - name: verify kubectl
         run: kubectl --context "$KUBE_CONTEXT" cluster-info
-      # TEMPORARY - delete once the credential mismatch is identified
-      - name: debug creds fingerprint
-        run: |
-          for n in CLUSTER_URL KEYCLOAK_DEV_USER KEYCLOAK_DEV_PASS KEYCLOAK_GUEST_USER KEYCLOAK_GUEST_PASS; do
-            v="${!n}"
-            if [ -z "$v" ]; then
-              printf '%-20s MISSING/EMPTY\n' "$n"
-            else
-              printf '%-20s len=%-3s sha8=%s has_at=%s trailing_ws=%s\n' \
-                "$n" "${#v}" \
-                "$(printf '%s' "$v" | sha256sum | cut -c1-8)" \
-                "$(case "$v" in *@*) echo yes;; *) echo no;; esac)" \
-                "$(case "$v" in *[[:space:]]) echo YES;; *) echo no;; esac)"
-            fi
-          done
-          echo "--- expected ---"
-          echo "KEYCLOAK_DEV_USER    len=9   sha8=88fa0d75  (developer)"
-          echo "KEYCLOAK_DEV_PASS    len=17  sha8=057dafce  (developerPassword)"
-          echo "KEYCLOAK_GUEST_USER  len=5   sha8=84983c60  (guest)"
-          echo "KEYCLOAK_GUEST_PASS  len=13  sha8=718dc018  (guestPassword)"
-        env:
-          CLUSTER_URL: ${{ secrets.CICD_LZ_URL }}
-          KEYCLOAK_DEV_USER: ${{ secrets.KEYCLOAK_DEV_USER }}
-          KEYCLOAK_DEV_PASS: ${{ secrets.KEYCLOAK_DEV_PASS }}
-          KEYCLOAK_GUEST_USER: ${{ secrets.KEYCLOAK_GUEST_USER }}
-          KEYCLOAK_GUEST_PASS: ${{ secrets.KEYCLOAK_GUEST_PASS }}
       - name: test
         run: ./test.sh
         env:
